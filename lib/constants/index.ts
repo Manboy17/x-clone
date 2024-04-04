@@ -1,4 +1,13 @@
-import { Bell, Bookmark, FolderDot, Home, Moon, Sun, User } from "lucide-react";
+import {
+  Bell,
+  Bookmark,
+  FolderDot,
+  Home,
+  Moon,
+  Sun,
+  User,
+  UsersRound,
+} from "lucide-react";
 
 export type LinkType = {
   href: string;
@@ -21,6 +30,11 @@ export const links = [
     href: "/bookmarks",
     value: "Bookmarks",
     icon: Bookmark,
+  },
+  {
+    href: "/users",
+    value: "Users",
+    icon: UsersRound,
   },
   {
     href: "/profile",

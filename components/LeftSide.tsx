@@ -15,9 +15,9 @@ const LeftSide = () => {
   const pathname = usePathname();
   const session = useSession();
   return (
-    <div className="flex flex-col p-3 md:p-5 border-r sticky left-0 top-0 h-screen">
-      <h1 className="text-xl font-bold text-center">Xsify</h1>
-      <div className="flex justify-center items-center md:items-start flex-col gap-y-7 pt-6">
+    <div className="flex flex-col p-3 md:p-5 border-r sticky left-0 top-0 h-screen lg:w-[260px]">
+      <h1 className="text-xl font-bold lg:text-left text-center">Xsify</h1>
+      <div className="flex justify-center items-center lg:items-start flex-col gap-y-7 pt-6">
         {links.map((link: LinkType) => (
           <Link
             key={link.href}
@@ -28,13 +28,13 @@ const LeftSide = () => {
             )}
           >
             <link.icon size={25} />
-            <p className="hidden md:block">{link.value}</p>
+            <p className="hidden lg:block">{link.value}</p>
           </Link>
         ))}
         <FormPopover sideOffset={10} align="center" side="right">
           <div className="flex items-center gap-x-5 text-lg tracking-wide hover:text-orange-500 transition cursor-pointer">
             <Settings />
-            <p className="hidden md:block">Settings</p>
+            <p className="hidden lg:block">Settings</p>
           </div>
         </FormPopover>
         {session.status === "authenticated" ? (
@@ -43,7 +43,7 @@ const LeftSide = () => {
             onClick={() => signOut()}
           >
             <LogOut />
-            <p className="hidden md:block">Log out</p>
+            <p className="hidden lg:block">Log out</p>
           </div>
         ) : (
           <Link
@@ -51,21 +51,21 @@ const LeftSide = () => {
             className="flex items-center gap-x-5 text-lg tracking-wide hover:text-orange-500 transition"
           >
             <LogIn />
-            <p className="hidden md:block">Log in</p>
+            <p className="hidden lg:block">Log in</p>
           </Link>
         )}
         <Button
-          className="flex md:hidden rounded-full"
+          className="flex lg:hidden rounded-full"
           variant="organge"
           size="icon"
         >
           <Feather size={25} color="white" />
         </Button>
         <Button
-          className="w-full py-y px-4 text-white font-semibold hidden md:block"
+          className="w-full py-y px-4 text-white font-semibold hidden lg:block"
           variant="organge"
         >
-          Tweet
+          Post
         </Button>
       </div>
     </div>
