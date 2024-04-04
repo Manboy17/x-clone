@@ -40,8 +40,9 @@ const Login = () => {
         email,
         password,
       });
+      console.log(res);
       if (res?.error) {
-        setError(res.error);
+        setError("Invalid credentials");
         if (res?.url) router.replace("/");
       } else {
         setError("");
@@ -86,7 +87,9 @@ const Login = () => {
             placeholder="Password..."
             className="min-w-[300px] outline-none border border-gray-400 rounded-sm px-2 py-1.5"
           />
-          <Button variant="default">Login</Button>
+          <Button variant="default" role="submit">
+            Login
+          </Button>
           <p>
             Don't have an account?{" "}
             <Link

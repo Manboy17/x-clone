@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { RefreshCcw } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -18,6 +19,7 @@ const page = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError("");
 
     const formData = new FormData(e.currentTarget);
 
@@ -28,6 +30,10 @@ const page = () => {
     if (!isValidEmail) {
       setError("Invalid email address");
       return;
+    }
+
+    if (!username || !email) {
+      setError("Please fill all fields");
     }
 
     if (!password || password.length < 6) {
@@ -68,7 +74,11 @@ const page = () => {
   }, [router, status]);
 
   if (status === "loading") {
-    return <p>Loading...</p>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <RefreshCcw className="animate-spin h-12 w-12 text-gray-600" />
+      </div>
+    );
   }
 
   return (
