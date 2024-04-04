@@ -1,7 +1,8 @@
 "use client";
 
+import "../../globals.css";
 import { Button } from "@/components/ui/button";
-import { RefreshCcw } from "lucide-react";
+import { RefreshCcw, X } from "lucide-react";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -70,24 +71,30 @@ const Login = () => {
     status !== "authenticated" && (
       <div className="flex flex-col items-center justify-center h-screen w-screen bg-black/50">
         <form
-          className="p-[50px] shadow-md bg-white rounded-md flex flex-col gap-y-5"
+          className="relative p-[50px] shadow-md bg-white dark:bg-black/50 rounded-md flex flex-col gap-y-5 dark:border dark:border-gray-600"
           onSubmit={handleSubmit}
         >
+          <div
+            className="absolute top-2 right-2 cursor-pointer"
+            onClick={() => router.replace("/")}
+          >
+            <X />
+          </div>
           <h3 className="text-center text-lg font-semibold">Welcome back</h3>
           <h2 className="text-sm">Login</h2>
           <input
             type="email"
             name="email"
             placeholder="Email..."
-            className="min-w-[300px] outline-none border border-gray-400 rounded-sm px-2 py-1.5"
+            className="min-w-[300px] outline-none border border-gray-400 dark:bg-stone-600 rounded-sm px-2 py-1.5"
           />
           <input
             type="password"
             name="password"
             placeholder="Password..."
-            className="min-w-[300px] outline-none border border-gray-400 rounded-sm px-2 py-1.5"
+            className="min-w-[300px] outline-none border border-gray-400 dark:bg-stone-600 rounded-sm px-2 py-1.5"
           />
-          <Button variant="default" role="submit">
+          <Button variant="default" role="submit" className="dark:bg-blue-500">
             Login
           </Button>
           <p>

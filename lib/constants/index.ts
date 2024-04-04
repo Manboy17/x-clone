@@ -1,4 +1,4 @@
-import { Bell, Bookmark, Home, Settings, User } from "lucide-react";
+import { Bell, Bookmark, FolderDot, Home, Moon, Sun, User } from "lucide-react";
 
 export type LinkType = {
   href: string;
@@ -27,9 +27,22 @@ export const links = [
     value: "Profile",
     icon: User,
   },
+];
+
+export const themes = [
   {
-    href: "/settings",
-    value: "Settings",
-    icon: Settings,
+    icon: Sun,
+    label: "Light",
+    value: "light",
+  },
+  {
+    icon: Moon,
+    label: "Dark",
+    value: "dark",
+  },
+  {
+    icon: FolderDot,
+    label: "System",
+    value: "system",
   },
 ];

@@ -1,3 +1,4 @@
+import "../globals.css";
 import LeftSide from "@/components/LeftSide";
 
 import React from "react";

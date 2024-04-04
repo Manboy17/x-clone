@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import SessionProvider from "@/lib/SessionProviders";
 import { getServerSession } from "next-auth";
+import { ThemeProvider } from "@/context/ThemeProvider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -29,7 +30,9 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <SessionProvider session={session}>{children}</SessionProvider>
+        <SessionProvider session={session}>
+          <ThemeProvider>{children}</ThemeProvider>
+        </SessionProvider>
       </body>
     </html>
   );
