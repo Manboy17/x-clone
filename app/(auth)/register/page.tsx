@@ -24,6 +24,7 @@ const page = () => {
 
     const formData = new FormData(e.currentTarget);
 
+    const name = formData.get("name") as string;
     const username = formData.get("username") as string;
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
@@ -33,7 +34,7 @@ const page = () => {
       return;
     }
 
-    if (!username || !email) {
+    if (!name || !username || !email) {
       setError("Please fill all fields");
     }
 
@@ -49,6 +50,7 @@ const page = () => {
           "CONTENT-TYPE": "application/json",
         },
         body: JSON.stringify({
+          name,
           username,
           email,
           password,
@@ -97,6 +99,12 @@ const page = () => {
           </div>
           <h3 className="text-center text-lg font-semibold">Welcome to X</h3>
           <h2 className="text-sm">Register</h2>
+          <input
+            type="text"
+            name="name"
+            placeholder="Name..."
+            className="min-w-[300px] outline-none border border-gray-400 dark:bg-stone-600 rounded-sm px-2 py-1.5"
+          />
           <input
             type="text"
             name="username"

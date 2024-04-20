@@ -10,34 +10,50 @@ import { signOut } from "next-auth/react";
 import React from "react";
 import { Button } from "./ui/button";
 import FormPopover from "./form/FormPopover";
+import { SessionUserProps } from "@/lib/types";
 
 const LeftSide = () => {
   const pathname = usePathname();
-  const session = useSession();
+  const { data: session, status } = useSession() as {
+    data: SessionUserProps | null;
+    status: string;
+  };
+  const userId = session?.user?.id;
+
+  const basePathname = pathname.split("/")[1];
+
   return (
     <div className="flex flex-col p-3 md:p-5 border-r sticky left-0 top-0 h-screen lg:w-[260px]">
-      <h1 className="text-xl font-bold lg:text-left text-center">Xsify</h1>
+      <Link href="/" className="text-xl font-bold lg:text-left text-center">
+        Xsify
+      </Link>
       <div className="flex justify-center items-center lg:items-start flex-col gap-y-7 pt-6">
-        {links.map((link: LinkType) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            className={cn(
-              "flex items-center gap-x-5 text-md lg:text-lg tracking-wide hover:text-orange-500 transition",
-              pathname === link.href && "font-semibold text-orange-500"
-            )}
-          >
-            <link.icon size={25} />
-            <p className="hidden lg:block">{link.value}</p>
-          </Link>
-        ))}
+        {links.map((link: LinkType) => {
+          const baseLinkHref = link.href.split("/")[1];
+
+          return (
+            <Link
+              key={link.href}
+              href={
+                link.href === "/profile/:id" ? `/profile/${userId}` : link.href
+              }
+              className={cn(
+                "flex items-center gap-x-5 text-md lg:text-lg tracking-wide hover:text-orange-500 transition",
+                basePathname === baseLinkHref && "font-semibold text-orange-500"
+              )}
+            >
+              <link.icon size={25} />
+              <p className="hidden lg:block">{link.value}</p>
+            </Link>
+          );
+        })}
         <FormPopover sideOffset={10} align="center" side="right">
           <div className="flex items-center gap-x-5 text-lg tracking-wide hover:text-orange-500 transition cursor-pointer">
             <Settings />
             <p className="hidden lg:block">Settings</p>
           </div>
         </FormPopover>
-        {session.status === "authenticated" ? (
+        {status === "authenticated" ? (
           <div
             className="flex items-center gap-x-5 text-lg tracking-wide hover:text-orange-500 transition cursor-pointer"
             onClick={() => signOut()}

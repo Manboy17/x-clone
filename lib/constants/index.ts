@@ -37,7 +37,7 @@ export const links = [
     icon: UsersRound,
   },
   {
-    href: "/profile",
+    href: "/profile/:id",
     value: "Profile",
     icon: User,
   },

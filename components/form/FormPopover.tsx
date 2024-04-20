@@ -8,7 +8,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "../ui/button";
-import { FolderDot, Moon, Sun, X } from "lucide-react";
+import { X } from "lucide-react";
 import { useTheme } from "@/context/ThemeProvider";
 import { themes } from "@/lib/constants";
 import { cn } from "@/lib/utils";
