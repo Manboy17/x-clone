@@ -13,6 +13,7 @@ export interface IUser extends Document {
   createdAt: Date;
   updatedAt: Date;
   followingIds: string[];
+  followerIds: string[];
   hasNotifications?: boolean;
 
   posts: Schema.Types.ObjectId;
@@ -33,6 +34,7 @@ const UserSchema = new Schema<IUser>({
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
   followingIds: { type: [String], default: [] },
+  followerIds: { type: [String], default: [] },
   hasNotifications: { type: Boolean },
 });
 

@@ -41,7 +41,6 @@ const Login = () => {
         email,
         password,
       });
-      console.log(res);
       if (res?.error) {
         setError("Invalid credentials");
         if (res?.url) router.replace("/");

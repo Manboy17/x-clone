@@ -5,18 +5,51 @@ import { parseUser } from "@/utils/helpers";
 import { IUser } from "@/utils/models/user.model";
 import { format } from "date-fns";
 import { useSession } from "next-auth/react";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { Button } from "./ui/button";
 import { CalendarDays } from "lucide-react";
 import EditPopover from "./form/EditPopover";
+import { usePathname } from "next/navigation";
+import { followUser, unfollowUser } from "@/utils/actions/user.action";
 
 interface UserBioProps {
   user: string;
+  currentUserId?: string;
+  userIdToFollow: string;
 }
 
-const UserBio = ({ user }: UserBioProps) => {
+const UserBio = ({
+  user,
+  currentUserId = "",
+  userIdToFollow,
+}: UserBioProps) => {
   const { data: session } = useSession() as { data: SessionUserProps | null };
+  const pathname = usePathname();
   const parsedUser: IUser = parseUser(user);
+  const userFollowed = parsedUser.followerIds.includes(currentUserId);
+  const [isFollowed, setIsFollowed] = useState(userFollowed);
+
+  const handleFollow = async () => {
+    try {
+      if (isFollowed) {
+        await unfollowUser({
+          path: pathname,
+          currentUserId,
+          userIdToUnfollow: userIdToFollow,
+        });
+        setIsFollowed(false);
+      } else {
+        await followUser({
+          path: pathname,
+          currentUserId,
+          userIdToFollow,
+        });
+        setIsFollowed(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const createdAt = useMemo(() => {
     if (!parsedUser.createdAt) {
@@ -31,7 +64,14 @@ const UserBio = ({ user }: UserBioProps) => {
         {parsedUser?._id === session?.user.id ? (
           <EditPopover user={parsedUser} />
         ) : (
-          <Button>Follow</Button>
+          <Button
+            size="sm"
+            variant={isFollowed ? "destructive" : "default"}
+            className="text-xs"
+            onClick={handleFollow}
+          >
+            {isFollowed ? "Unfollow" : "Follow"}
+          </Button>
         )}
       </div>
       <div className="mt-8 px-4">
@@ -60,7 +100,7 @@ const UserBio = ({ user }: UserBioProps) => {
             </span>
           </p>
           <p className="font-semibold flex items-center gap-1">
-            0{" "}
+            {parsedUser?.followerIds?.length}{" "}
             <span className="text-gray-500 dark:text-gray-400 text-sm font-medium">
               Followers
             </span>

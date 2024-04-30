@@ -1,12 +1,12 @@
 import React from "react";
 import Link from "next/link";
-import { Button } from "./ui/button";
 import { getAllUsers } from "@/utils/actions/user.action";
 import { IUser } from "@/utils/models/user.model";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import { SessionUserProps } from "@/lib/types";
 import Avatar from "./Avatar";
+import { Star } from "lucide-react";
 
 const RightSide = async () => {
   const users: IUser[] | undefined = await getAllUsers();
@@ -32,9 +32,7 @@ const RightSide = async () => {
                 </div>
               </div>
               {session?.user.id !== user._id.toString() && (
-                <Button size="sm" className="text-xs rounded-full">
-                  Follow
-                </Button>
+                <Star className="w-[10] h-[10] text-orange-500" />
               )}
             </div>
           ))}

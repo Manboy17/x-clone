@@ -9,13 +9,13 @@ import React, { useCallback } from "react";
 interface AvatarProps {
   user: string;
   isLarge?: boolean;
+  isMedium?: boolean;
   hasBorder?: boolean;
 }
 
-const Avatar = ({ user, isLarge, hasBorder }: AvatarProps) => {
+const Avatar = ({ user, isLarge, isMedium, hasBorder }: AvatarProps) => {
   const router = useRouter();
   const parsedUser: IUser = parseUser(user);
-  console.log(parsedUser.imageCover);
 
   const handleClick = useCallback((e: any) => {
     e.stopPropagation();
@@ -27,6 +27,7 @@ const Avatar = ({ user, isLarge, hasBorder }: AvatarProps) => {
       className={`
         ${hasBorder ? "border-4 border-black" : ""}
         ${isLarge ? "h-32 w-32" : "h-12 w-12"}
+        ${isMedium ? "h-20 w-20" : "h-12 w-12"}
         rounded-full
         hover:opacity-90
         transition

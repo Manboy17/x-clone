@@ -2,9 +2,10 @@ export interface SessionUserProps {
   user: {
     id: string;
     name: string;
-    email: string;
     username: string;
-    image: string;
+    bio: string;
+    profileImage: string;
+    imageCover: string;
   };
 }
 
@@ -18,4 +19,16 @@ export interface UpdateUserParams {
     imageCover: string;
   };
   path: string;
+}
+
+export interface FollowUserParams {
+  path: string;
+  currentUserId: string;
+  userIdToFollow: string;
+}
+
+export interface UnfollowUserParams {
+  path: string;
+  currentUserId: string;
+  userIdToUnfollow: string;
 }

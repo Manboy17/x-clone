@@ -70,7 +70,7 @@ const FormPopover = ({
                 }
               }}
             >
-              <theme.icon className="h-4 w-4" />
+              <theme.icon className="h-4 w-4 no-focus" />
               <span>{theme.label}</span>
             </Button>
           ))}
