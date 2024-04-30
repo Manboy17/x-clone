@@ -31,7 +31,7 @@ const RightSide = async () => {
                   </span>
                 </div>
               </div>
-              {session?.user.id !== user._id.toString() && (
+              {session?.user.id === user._id.toString() && (
                 <Star className="w-[10] h-[10] text-orange-500" />
               )}
             </div>
