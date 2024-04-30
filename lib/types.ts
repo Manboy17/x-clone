@@ -1,3 +1,8 @@
+export interface GetAllUsersParams {
+  searchQuery?: string;
+  filter?: string;
+}
+
 export interface SessionUserProps {
   user: {
     id: string;

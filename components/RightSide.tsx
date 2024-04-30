@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { getAllUsers } from "@/utils/actions/user.action";
+import { getAllSideUsers, getAllUsers } from "@/utils/actions/user.action";
 import { IUser } from "@/utils/models/user.model";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
@@ -9,7 +9,7 @@ import Avatar from "./Avatar";
 import { Star } from "lucide-react";
 
 const RightSide = async () => {
-  const users: IUser[] | undefined = await getAllUsers();
+  const users: IUser[] | undefined = await getAllSideUsers();
   const session: SessionUserProps | null = await getServerSession(authOptions);
 
   return (

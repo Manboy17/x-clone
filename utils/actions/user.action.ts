@@ -2,14 +2,59 @@
 
 import {
   FollowUserParams,
+  GetAllUsersParams,
   UnfollowUserParams,
   UpdateUserParams,
 } from "@/lib/types";
 import { connectToDatabase } from "../connect";
 import User from "../models/user.model";
 import { revalidatePath } from "next/cache";
+import { FilterQuery } from "mongoose";
 
-export async function getAllUsers() {
+export async function getAllUsers(params: GetAllUsersParams) {
+  try {
+    await connectToDatabase();
+    const { searchQuery, filter } = params;
+
+    const query: FilterQuery<typeof User> = {};
+
+    if (searchQuery) {
+      query.$or = [
+        {
+          name: { $regex: searchQuery, $options: "i" },
+        },
+        {
+          username: { $regex: searchQuery, $options: "i" },
+        },
+      ];
+    }
+
+    let sortOptions = {};
+
+    switch (filter) {
+      case "asc":
+        sortOptions = { followerIds: 1 };
+        break;
+      case "desc":
+        sortOptions = { followerIds: -1 };
+        break;
+      default:
+        break;
+    }
+
+    const users = await User.find(query).sort(sortOptions);
+
+    if (!users) {
+      throw new Error("No users found");
+    }
+
+    return users;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getAllSideUsers() {
   try {
     await connectToDatabase();
 
