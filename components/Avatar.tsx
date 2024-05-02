@@ -37,7 +37,11 @@ const Avatar = ({ user, isLarge, isMedium, hasBorder }: AvatarProps) => {
     `}
     >
       <Image
-        src={parsedUser?.profileImage ?? "/assets/placeholder.png"}
+        src={
+          parsedUser?.profileImage
+            ? parsedUser?.profileImage
+            : "/assets/placeholder.png"
+        }
         className="object-cover rounded-full"
         fill
         alt="profile image"

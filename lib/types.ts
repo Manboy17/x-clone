@@ -37,3 +37,7 @@ export interface UnfollowUserParams {
   currentUserId: string;
   userIdToUnfollow: string;
 }
+
+export interface GetNotificationsParams {
+  userId: string;
+}

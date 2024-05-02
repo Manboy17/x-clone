@@ -20,7 +20,7 @@ const User = ({ user }: UserProps) => {
           <h1 className="font-semibold md:text-lg">{parsedUser.name}</h1>
           <h2 className="text-sm">{parsedUser.username}</h2>
           <p className="text-xs mt-2 text-gray-500">
-            {parsedUser.followingIds.length} followers
+            {parsedUser.followerIds.length} followers
           </p>
         </div>
       </article>

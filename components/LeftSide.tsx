@@ -7,12 +7,16 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "./ui/button";
 import FormPopover from "./form/FormPopover";
 import { SessionUserProps } from "@/lib/types";
 
-const LeftSide = () => {
+interface LeftSideProps {
+  notifications: string;
+}
+
+const LeftSide = ({ notifications }: LeftSideProps) => {
   const pathname = usePathname();
   const { data: session, status } = useSession() as {
     data: SessionUserProps | null;
@@ -21,6 +25,7 @@ const LeftSide = () => {
   const userId = session?.user?.id;
 
   const basePathname = pathname.split("/")[1];
+  const parsedNotifications = JSON.parse(notifications) as Notification[];
 
   return (
     <div className="flex flex-col p-3 md:p-5 border-r sticky left-0 top-0 h-screen lg:w-[260px]">
@@ -42,8 +47,20 @@ const LeftSide = () => {
                 basePathname === baseLinkHref && "font-semibold text-orange-500"
               )}
             >
-              <link.icon size={25} />
-              <p className="hidden lg:block">{link.value}</p>
+              {link.value === "Notifications" ? (
+                <div className="relative flex items-center gap-x-5">
+                  <link.icon size={25} />
+                  <p className="hidden lg:block">{link.value}</p>
+                  {parsedNotifications.length > 0 && (
+                    <div className="absolute w-3 h-3 bg-orange-500 rounded-full -top-1 left-3" />
+                  )}
+                </div>
+              ) : (
+                <>
+                  <link.icon size={25} />
+                  <p className="hidden lg:block">{link.value}</p>
+                </>
+              )}
             </Link>
           );
         })}

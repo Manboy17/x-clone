@@ -10,6 +10,7 @@ import { connectToDatabase } from "../connect";
 import User from "../models/user.model";
 import { revalidatePath } from "next/cache";
 import { FilterQuery } from "mongoose";
+import Notification from "../models/notification.model";
 
 export async function getAllUsers(params: GetAllUsersParams) {
   try {
@@ -130,6 +131,25 @@ export async function followUser(params: FollowUserParams) {
     await currentUser.save();
 
     userToFollow.followerIds.push(currentUser._id);
+
+    try {
+      await Notification.create({
+        id: userToFollow._id + currentUser._id,
+        description: `${currentUser.username} followed you`,
+        userId: userToFollow._id,
+      });
+
+      await Notification.updateOne(
+        {
+          userId: userToFollow._id,
+        },
+        {
+          hasNotifications: true,
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
 
     await userToFollow.save();
     revalidatePath(path);
