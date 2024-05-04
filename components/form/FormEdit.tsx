@@ -167,7 +167,11 @@ const FormEdit = ({ user }: FormEditProps) => {
           )}
         />
         <DialogClose asChild>
-          <Button type="submit" disabled={isLoading}>
+          <Button
+            type="submit"
+            disabled={isLoading}
+            className="disabled:opacity-80"
+          >
             {isLoading ? "Saving..." : "Save"}
           </Button>
         </DialogClose>

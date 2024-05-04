@@ -16,7 +16,7 @@ const Header = ({ showArrowBack, label }: HeaderProps) => {
     router.back();
   }, [router]);
   return (
-    <div className="border-b-1 border-neutral-800 p-3">
+    <div className="border-b-[1px] p-3">
       <div className="flex flex-row items-center gap-2">
         {showArrowBack && (
           <ChevronLeft

@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
-import React, { useEffect } from "react";
+import React from "react";
 import { Button } from "./ui/button";
 import FormPopover from "./form/FormPopover";
 import { SessionUserProps } from "@/lib/types";

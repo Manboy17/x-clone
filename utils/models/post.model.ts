@@ -5,7 +5,6 @@ export interface IPost extends Document {
   description: string;
   createdAt: Date;
   updatedAt: Date;
-  userId: string;
   likedIds: string[];
 
   user: Schema.Types.ObjectId;
@@ -17,7 +16,6 @@ const PostSchema = new Schema<IPost>({
   description: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
-  userId: { type: String, required: true },
   likedIds: { type: [String], default: [] },
   user: { type: Schema.Types.ObjectId, ref: "User" },
   comment: { type: Schema.Types.ObjectId, ref: "Comment" },

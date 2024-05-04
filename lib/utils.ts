@@ -81,3 +81,48 @@ export const getTimestamp = (createdAt: Date): string => {
     return `${years} ${years === 1 ? "year" : "years"} ago`;
   }
 };
+
+export function formatDate(dateString: string) {
+  const date = new Date(dateString);
+
+  // Get hours, minutes, and AM/PM
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const ampm = hours >= 12 ? "PM" : "AM";
+
+  // Convert hours from 24-hour to 12-hour format
+  const formattedHours = hours % 12 || 12;
+
+  // Get month name
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const month = months[date.getMonth()];
+
+  // Get day and year
+  const day = date.getDate();
+  const year = date.getFullYear();
+
+  // Construct formatted string
+  const formattedDate = `${formattedHours}:${minutes
+    .toString()
+    .padStart(2, "0")} ${ampm} - ${month} ${day} - ${year}`;
+
+  return formattedDate;
+}
+
+// Example usage
+const dateString = "2022-12-07T05:45:00.000Z";
+const formattedDate = formatDate(dateString);
+console.log(formattedDate); // Output: "5:45 AM - Dec 7 - 2022"

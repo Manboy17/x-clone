@@ -41,3 +41,14 @@ export interface UnfollowUserParams {
 export interface GetNotificationsParams {
   userId: string;
 }
+
+export interface CreatePostParams {
+  user: {
+    id: string;
+    name: string;
+    username: string;
+    profileImage: string;
+  };
+  description: string;
+  path: string;
+}

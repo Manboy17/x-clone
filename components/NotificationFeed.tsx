@@ -20,7 +20,7 @@ const NotificationFeed = async ({ userId }: NotificationFeedProps) => {
   }
 
   return (
-    <div className="flex flex-col w-full border-t-[1px]">
+    <div className="flex flex-col w-full">
       {notifications?.map((n) => (
         <div
           key={n.id}
